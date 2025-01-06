@@ -1,2 +1,6 @@
-# java_6_sea-battle-game
-At work
+# Игра "Морской бой" (консоль)
+
+Источник:
+1. Видео "#1 Морской бой на Java (Консольный вариант)."
+   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456282311%2Fde0d9cf7b25c2c223c
+
