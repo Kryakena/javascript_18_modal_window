@@ -78,8 +78,26 @@ html,body{
 <title>Модальное окно</title>
 ```
 
-6. в файле index.html добавляем классы для модального окна
+6. в файле index.html подключаем bootstrap 4 
+(открытый и бесплатный HTML-, CSS- и JS-фреймворк для создания сайтов и веб-приложений),
+чтобы не тратить время на заполнение стилей
+
 
 ```html
+<!-- Подключаем CSS фреймворка bootstrap 4-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+```
 
+7. в файле index.html подключаем класс container
+
+```html
+<div class="container">
+   <h1>JavaScript Практика</h1>
+</div>
+```
+
+8. в файле index.html добавляем в данный container текст (набираем с новой строки "Lorem100" и нажимаем кнопку на клавиатуре "Tab")
+
+```html
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cum dolores ex excepturi obcaecati sequi, velit. Accusamus aspernatur consequuntur dignissimos, facere id illo, ipsam magnam minima nobis obcaecati recusandae repellat veniam vero? Alias asperiores assumenda beatae blanditiis corporis deleniti dolor dolore, eligendi error facere inventore magni minus molestias nobis non quia quos similique sint. Enim minus odio placeat qui, sint suscipit? Amet nam necessitatibus quos. Aperiam delectus expedita fugit in ipsa, ipsum laudantium magnam minus, modi pariatur quas, quasi quos sapiente tenetur unde? Aut consequuntur, doloribus eaque earum ex in iusto laudantium mollitia nesciunt officiis quisquam tempore vero voluptate voluptatibus?</p>
 ```
