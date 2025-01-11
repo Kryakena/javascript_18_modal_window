@@ -4,9 +4,8 @@
 1. видео "Модальное окно на ЧИСТОМ JS + CSS. Урок 1"
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
 
-1. создаем создаем файлы index.html, style.css (в папке css), script.js (в папке js) в папке проекта.
-   Скачиваем готовые шаблоны изображений (в папку img) и файл js (положить в папку js) и вставляем в папку проекта:
-
+1. создаем создаем файлы index.html, modal.css (в папке css), base.js (для подключения плагинов в папке js) 
+и index.js (ведется разработка, в папке js, подключается в самом конце после base.js) в папке проекта.
 
 2. в файле index.html готовим шаблон
 
@@ -19,8 +18,9 @@ https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389
 <head>
     <!-- Заголовок страницы в браузере -->
     <title></title>
+
     <!-- Подключаем CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
     <!-- Кодировка страницы -->
     <meta charset="utf-8">
     <!-- Адаптив -->
@@ -32,16 +32,15 @@ https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389
 <div class="wrapper">
     <!-- Контент -->
 
-    <!-- Подключаем jQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!-- Подключаем файл JS скриптов -->
-    <script src="js/script.js"></script>
 </div>
+<!-- Подключаем файл JS скриптов -->
+<script src="js/base.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
 ```
 
-3. в файле style.css вставляем шаблон
+3. в файле modal.css вставляем шаблон
 
 ```css
 /* Обнуление */
@@ -66,29 +65,38 @@ html,body{
 /* Основные стили */
 ```
 
-4. в файл script.js без шаблона
+4. в файл base.js вставляем шаблон
+
+```js
+const $ = {
+
+}
+
+window.$ = $
+```
+
+5. в файл index.js без шаблона
 
 ```js
 
 ```
 
-5. в файле index.html вставляем название проекта
+6. в файле index.html вставляем название проекта
 
 ```html
 <title>Модальное окно</title>
 ```
 
-6. в файле index.html подключаем bootstrap 4 
+7. в файле index.html в разделе head подключаем bootstrap 4 
 (открытый и бесплатный HTML-, CSS- и JS-фреймворк для создания сайтов и веб-приложений),
 чтобы не тратить время на заполнение стилей
-
 
 ```html
 <!-- Подключаем CSS фреймворка bootstrap 4-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 ```
 
-7. в файле index.html подключаем класс container
+8. в файле index.html подключаем класс container
 
 ```html
 <div class="container">
@@ -96,8 +104,21 @@ html,body{
 </div>
 ```
 
-8. в файле index.html добавляем в данный container текст (набираем с новой строки "Lorem100" и нажимаем кнопку на клавиатуре "Tab")
+9. в файле index.html добавляем в данный container текст (набираем с новой строки "Lorem100" и нажимаем кнопку на клавиатуре "Tab")
 
 ```html
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cum dolores ex excepturi obcaecati sequi, velit. Accusamus aspernatur consequuntur dignissimos, facere id illo, ipsam magnam minima nobis obcaecati recusandae repellat veniam vero? Alias asperiores assumenda beatae blanditiis corporis deleniti dolor dolore, eligendi error facere inventore magni minus molestias nobis non quia quos similique sint. Enim minus odio placeat qui, sint suscipit? Amet nam necessitatibus quos. Aperiam delectus expedita fugit in ipsa, ipsum laudantium magnam minus, modi pariatur quas, quasi quos sapiente tenetur unde? Aut consequuntur, doloribus eaque earum ex in iusto laudantium mollitia nesciunt officiis quisquam tempore vero voluptate voluptatibus?</p>
+```
+
+10. в проекте создаем папку plugins и создаем в нем файл modal.js. Подключаем его в файле index.html
+Важно! После подключенного скрипта base.js, чтобы в modal.js был доступен глобальный объект $
+
+```html
+<script src="plugins/modal.js"></script>
+```
+
+11. 
+
+```html
+
 ```
