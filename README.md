@@ -65,17 +65,13 @@ html,body{
 /* Основные стили */
 ```
 
-4. в файл base.js вставляем шаблон
+4. файл base.js без шаблона
 
 ```js
-const $ = {
 
-}
-
-window.$ = $
 ```
 
-5. в файл index.js без шаблона
+5. файл index.js без шаблона
 
 ```js
 
@@ -117,8 +113,83 @@ window.$ = $
 <script src="plugins/modal.js"></script>
 ```
 
-11. 
+11. в modal.js создаем функцию для вызова модального окна
 
-```html
-
+```js
+// Эта системная функция должна вызываться отдельно, приватно.
+// Она по умолчанию подключится к window, но с webpack будет работать.
+function createModal(options) {
+    const modal = document.createElement('div');
+    modal.classList.add('vmodal');
+    modal.insertAdjacentHTML('afterbegin', ``)
+}
 ```
+
+12. в modal.js в функцию createModal вставляем шаблон модального окна (как в HTML)
+
+```js
+<div class="vmodal">
+    <div class="modal-overlay">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span class="modal-title">Modal title</span>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit.</p>
+                <p>Lorem ipsum dolor sit.</p>
+            </div>
+            <div class="modal-footer">
+                <button>Ok</button>
+                <button>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+13. в modal.js в функции createModal из шаблона модального окна 
+удаляем класс vmodal, т.к. мы уже создали его в данной функции "modal.classList.add('vmodal')".
+И теперь функция будет выглядеть так:
+
+```js
+// Эта системная функция должна вызываться отдельно, приватно.
+// Она по умолчанию подключится к window, но с webpack будет работать.
+function createModal(options) {
+    const modal = document.createElement('div');
+    modal.classList.add('vmodal');
+    modal.insertAdjacentHTML('afterbegin', `
+        <div class="modal-overlay">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <span class="modal-title">Modal title</span>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit.</p>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+                <div class="modal-footer">
+                    <button>Ok</button>
+                    <button>Cancel</button>
+                </div>
+            </div>
+        </div>
+    `)
+}
+```
+
+14. в modal.js открытие и закрытие модального окна
+
+в функции createModal
+```js
+return modal
+```
+в функции $.modal
+```js
+const $modal = createModal(options);
+```
+
+15. проверка: открываем в браузере проект, нажимаем F12, 
+в консоли (Console) набираем "$.modal()", далее Enter на клавиатуре.
+Получаем в консоли ответ: {open: ƒ, close: ƒ, destroy: ƒ}
