@@ -193,3 +193,5 @@ const $modal = createModal(options);
 15. проверка: открываем в браузере проект, нажимаем F12, 
 в консоли (Console) набираем "$.modal()", далее Enter на клавиатуре.
 Получаем в консоли ответ: {open: ƒ, close: ƒ, destroy: ƒ}
+
+![2025-01-12_14-01-40](https://github.com/user-attachments/assets/e2e238dd-629e-4146-9581-2b1dc82c7c8b)
