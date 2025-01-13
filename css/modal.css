@@ -1,20 +1,41 @@
-/* Обнуление */
-*,*:before,*:after{
-    padding: 0;
-    margin: 0;
-    border: 0;
-    box-sizing: border-box;
+
+
+.modal-window, .modal-overlay { /* Обращаемся к селекторам */
+    opacity: 0;
+    z-index: -1; /* Чтобы эти селекторы отсутствовали у нас на экране */
 }
-/* Стили для демонстрации */
-html,body{
-    height: 100%;
-    background-color: #333;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    color: #fff;
-    font-size: 25px;
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
 }
-.wrapper{
-    height: 100%;
-    padding: 50px;
+
+.modal-window {
+    width: 600px;
+    border-radius: 5px;
+    background: #fff;
+    margin: 100px auto;
 }
-/* Основные стили */
+
+.modal-header {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    cursor: pointer;
+}
+
+.modal-body {
+
+}

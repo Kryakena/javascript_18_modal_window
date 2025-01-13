@@ -21,15 +21,16 @@ function createModal(options) {
             </div>
         </div>
     `)
+    document.body.appendChild(modal)
     return modal
 }
 
 $.modal = function(options) { // Работа с замыканием
-    const $modal = createModal(options);
+    const $modal = _createModal(options)
 
     return {  // Пример замыкания
         open() {}, // Визуализацию лучше делать через css, это наиболее быстрый путь
         close() {}, // Визуализацию лучше делать через css, это наиболее быстрый путь
-        destroy() {}, // Не позволяет приложению работать медленно, очень важный метод
+        destroy() {} // Не позволяет приложению работать медленно, очень важный метод
     }
 }

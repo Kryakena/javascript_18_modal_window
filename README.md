@@ -179,7 +179,7 @@ function createModal(options) {
 }
 ```
 
-14. в modal.js открытие и закрытие модального окна
+14. в modal.js открытие и закрытие модального окна в консоли
 
 в функции createModal
 ```js
@@ -195,3 +195,10 @@ const $modal = createModal(options);
 Получаем в консоли ответ: {open: ƒ, close: ƒ, destroy: ƒ}
 
 ![2025-01-12_14-01-40](https://github.com/user-attachments/assets/e2e238dd-629e-4146-9581-2b1dc82c7c8b)
+
+
+16. в modal.js в функции createModal открытие и закрытие модального окна в браузере
+
+```js
+document.body.appendChild(modal)
+```
