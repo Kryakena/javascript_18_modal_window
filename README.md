@@ -240,3 +240,5 @@ $modal.classList.remove('open') // Добавляем класс open
 ```js
 const modal = $.modal()
 ```
+
+![2025-01-14_17-44-59](https://github.com/user-attachments/assets/033a8275-9987-410e-8034-b54a0e2a40e2)
