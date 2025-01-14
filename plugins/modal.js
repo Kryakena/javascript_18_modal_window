@@ -26,11 +26,15 @@ function createModal(options) {
 }
 
 $.modal = function(options) { // Работа с замыканием
-    const $modal = _createModal(options)
+    const $modal = createModal(options)
 
     return {  // Пример замыкания
-        open() {}, // Визуализацию лучше делать через css, это наиболее быстрый путь
-        close() {}, // Визуализацию лучше делать через css, это наиболее быстрый путь
+        open() {
+            $modal.classList.add('open') // Добавляем класс open
+        }, // Визуализацию лучше делать через css, это наиболее быстрый путь
+        close() {
+            $modal.classList.remove('open') // Добавляем класс open
+        }, // Визуализацию лучше делать через css, это наиболее быстрый путь
         destroy() {} // Не позволяет приложению работать медленно, очень важный метод
     }
 }

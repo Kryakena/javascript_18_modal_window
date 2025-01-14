@@ -1,4 +1,10 @@
+.vmodal {}
 
+.vmodal.open .modal-overlay,
+.vmodal.open .modal-window{
+    opacity: 1;
+    z-index: 1000; /* Позволит модальному окну появляться поверх всех элементов */
+}
 
 .modal-window, .modal-overlay { /* Обращаемся к селекторам */
     opacity: 0;

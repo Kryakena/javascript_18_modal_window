@@ -1,1 +1,1 @@
-const myModal = $.modal()
+const modal = $.modal()

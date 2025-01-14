@@ -40,29 +40,10 @@ https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389
 </html>
 ```
 
-3. в файле modal.css вставляем шаблон
+3. в файле modal.css без шаблона
 
 ```css
-/* Обнуление */
-*,*:before,*:after{
-   padding: 0;
-   margin: 0;
-   border: 0;
-   box-sizing: border-box;
-}
-/* Стили для демонстрации */
-html,body{
-   height: 100%;
-   background-color: #333;
-   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-   color: #fff;
-   font-size: 25px;
-}
-.wrapper{
-   height: 100%;
-   padding: 50px;
-}
-/* Основные стили */
+
 ```
 
 4. файл base.js без шаблона
@@ -201,4 +182,61 @@ const $modal = createModal(options);
 
 ```js
 document.body.appendChild(modal)
+```
+
+15. в modal.css заполняем стандарт стилей для модального окна
+
+```css
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-window {
+    width: 600px;
+    border-radius: 5px;
+    background: #fff;
+    margin: 100px auto;
+}
+
+.modal-header {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    cursor: pointer;
+}
+
+.modal-body {
+
+}
+```
+
+17. в modal.js в return добавляем классы open при открытии (open) и закрытии (close) модального окна
+
+для open
+```js
+$modal.classList.remove('open') // Добавляем класс open
+```
+для close
+```js
+$modal.classList.remove('open') // Добавляем класс open
+```
+
+18. в index.js меняем название класса с MyModal на modal и убираем $ перед названием переменной modal
+и проверяем работу через консоль в браузере проекта
+
+```js
+const modal = $.modal()
 ```
