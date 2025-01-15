@@ -242,3 +242,21 @@ const modal = $.modal()
 ```
 
 ![2025-01-14_17-44-59](https://github.com/user-attachments/assets/033a8275-9987-410e-8034-b54a0e2a40e2)
+
+19. в modal.css заполняем стили для модального окна
+
+```css
+.vmodal {}
+
+.vmodal.open .modal-overlay,
+.vmodal.open .modal-window{
+    opacity: 1;
+    z-index: 1000; /* Позволит модальному окну появляться поверх всех элементов */
+}
+```
+
+20. в modal.css заполняем анимацию для модального окна
+
+```css
+
+```
