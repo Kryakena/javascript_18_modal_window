@@ -1,8 +1,15 @@
-# Модальное окно
+# 🌌 Модальное окно 🌌
 
 Источник: 
 1. видео "Модальное окно на ЧИСТОМ JS + CSS. Урок 1"
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
+
+![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
+
+
+https://github.com/user-attachments/assets/d1fb7288-5c25-4011-a697-5d9567436798
+
+
 
 1. создаем создаем файлы index.html, modal.css (в папке css), base.js (для подключения плагинов в папке js) 
 и index.js (ведется разработка, в папке js, подключается в самом конце после base.js) в папке проекта.
@@ -399,6 +406,9 @@ closing = false
 </html>
 ```
 
+![2025-01-16_11-51-46](https://github.com/user-attachments/assets/0608a30d-ed8d-4837-b3bb-fd4679f13162)
+
+
 2. modal.css
 
 ```css
@@ -475,6 +485,10 @@ closing = false
 }
 ```
 
+![2025-01-16_11-52-10](https://github.com/user-attachments/assets/abc7a7a1-b0fc-42b2-8328-baf8d24cdd2c)
+![2025-01-16_11-52-26](https://github.com/user-attachments/assets/29588841-a446-4029-8635-744545f84def)
+
+
 3. modal.js
 
 ```js
@@ -528,11 +542,17 @@ $.modal = function(options) { // Работа с замыканием
 }
 ```
 
+![2025-01-16_11-52-44](https://github.com/user-attachments/assets/de6924ff-f1d4-49df-b1fa-66bbc9923388)
+
+
 4. index.js
 
 ```js
 const modal = $.modal()
 ```
+
+![2025-01-16_11-52-59](https://github.com/user-attachments/assets/b55d7919-8c59-46bc-901d-226ed2a78194)
+
 
 5. base.js
 
@@ -543,3 +563,5 @@ const $ = {
 
 window.$ = $
 ```
+
+![2025-01-16_11-53-11](https://github.com/user-attachments/assets/08321d2b-b8d1-4b35-8616-677d8cf25861)
