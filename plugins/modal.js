@@ -26,14 +26,22 @@ function createModal(options) {
 }
 
 $.modal = function(options) { // Работа с замыканием
+    const ANIMATION_SPEED = 200
     const $modal = createModal(options)
+    let closing = false // Через let, т.к. мы будет менять
 
     return {  // Пример замыкания
         open() {
-            $modal.classList.add('open') // Добавляем класс open
+            !closing && $modal.classList.add('open') // Добавляем класс open
         }, // Визуализацию лучше делать через css, это наиболее быстрый путь
-        close() {
+        close() { // Вызываем метод close, который вызывает метод hide, который при завершении анимации закрытии модального окна, сам удалится
+            closing = true
             $modal.classList.remove('open') // Добавляем класс open
+            $modal.classList.add('hide')
+            setTimeout(() => {
+                $modal.classList.remove('hide')
+                closing = false
+            }, ANIMATION_SPEED)
         }, // Визуализацию лучше делать через css, это наиболее быстрый путь
         destroy() {} // Не позволяет приложению работать медленно, очень важный метод
     }

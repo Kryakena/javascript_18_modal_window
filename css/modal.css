@@ -6,8 +6,27 @@
     z-index: 1000; /* Позволит модальному окну появляться поверх всех элементов */
 }
 
-/* Делаем разные типы анимации: overlay - менять прозрачность, window - будет выпрыгивать сверху */
+.vmodal.hide .modal-overlay,
+.vmodal.hide .modal-window{
+    opacity: 1;
+    z-index: 1000;
+}
 
+/* Делаем разные типы анимации: overlay - менять прозрачность, window - будет выпрыгивать сверху */
+.vmodal.open .modal-window {
+    transform: translateY(100px); /* Модальное окно перемещается на 100 пикселей вниз. А чтобы сделать процесс плавным, то в .modal-window добавляем свойство transition */
+}
+.vmodal.open .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Анимация закрытия модального окна */
+.vmodal.hide .modal-window {
+    transform: translateY(-200px); /* Модальное окно перемещается на 200 пикселей вверх. */
+}
+.vmodal.hide .modal-overlay {
+    background: rgba(0, 0, 0, 0);
+}
 
 .modal-window, .modal-overlay { /* Обращаемся к селекторам */
     opacity: 0;
@@ -19,14 +38,17 @@
     right: 0;
     left: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0); /* Контур модального окна - мменяем значения все с 0.5 на 0 - чтобы изначально overlay был невидим */
+    transition: background 200ms ease-in; /* При желании можно вставить сюда img или указать цвет. Указываем скорость появления окна 200 милисекунд */
 }
 
 .modal-window {
     width: 600px;
     border-radius: 5px;
     background: #fff;
-    margin: 100px auto;
+    margin: 0 auto; /* Ставим 0, т.к. оступы у нас будут через transform */
+    transform: translateY(-200px); /* По умолчанию здесь находится модальное окно */
+    transition: transform 200ms ease-in;
 }
 
 .modal-header {
