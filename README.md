@@ -366,6 +366,3 @@ closing = false
 !closing && 
 ```
 
-
-
-![2025-01-16_11-53-11](https://github.com/user-attachments/assets/08321d2b-b8d1-4b35-8616-677d8cf25861)
