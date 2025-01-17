@@ -406,3 +406,4 @@ const DEFAULT_WIDTH = '600px'
 ```js
 ${options.closable ? `<span class="modal-close">&times;</span>` : ''} // Если нет контента, то выводится пустая строка
 ```
+![2025-01-17_19-52-20](https://github.com/user-attachments/assets/817dbb5e-a336-44e2-a615-eced5a251252)
