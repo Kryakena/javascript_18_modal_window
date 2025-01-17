@@ -3,6 +3,8 @@
 Источник: 
 1. видео "Модальное окно на ЧИСТОМ JS + CSS. Урок 1"
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
+2. видео "Модальное окно JS. События, Прототипы, Замыкания. Урок 2"
+   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8
 
 ![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
 
@@ -106,7 +108,7 @@ https://github.com/user-attachments/assets/d1fb7288-5c25-4011-a697-5d9567436798
 ```js
 // Эта системная функция должна вызываться отдельно, приватно.
 // Она по умолчанию подключится к window, но с webpack будет работать.
-function createModal(options) {
+function _createModal(options) {
     const modal = document.createElement('div');
     modal.classList.add('vmodal');
     modal.insertAdjacentHTML('afterbegin', ``)
@@ -143,9 +145,9 @@ function createModal(options) {
 ```js
 // Эта системная функция должна вызываться отдельно, приватно.
 // Она по умолчанию подключится к window, но с webpack будет работать.
-function createModal(options) {
+function _createModal(options) {
     const modal = document.createElement('div');
-    modal.classList.add('vmodal');
+    modal.classList.add('vmodal')
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay">
             <div class="modal-window">
@@ -366,3 +368,41 @@ closing = false
 !closing && 
 ```
 
+24. 
+
+- в index.js создаем новую const
+```js
+const modal = $.modal({ // Создаем объект {}
+  title: 'Vladilen Modal',
+  closable: true, // Чтобы модальное окно могло закрываться
+  content: `
+        <h4>Modal is working</h4>
+        <p>Lorem ipsum dolor sit.</p>
+    `,
+  width: '400px'
+})
+```
+- находим в modal.js класс в function _createModal и вместо контента с <p> вставляем
+```js
+${options.content || ''}  // Если я контент не передал, то выводится пустая строчка
+```
+- вместо фразы в title "Модальное окно" выводим
+```js
+<span class="modal-title">${options.title || 'Окно'}</span> // Если я контент не передал, то выводится слово "Окно"
+```
+- добавляем ширину окна style
+```js
+<div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
+```
+- а если ширина не задана, то по умолчанию добавляем const в function _createModal
+```js
+const DEFAULT_WIDTH = '600px'
+```
+- удаляем шаблон с "x" (кнопка закрытия окна)
+```js
+<span class="modal-close">&times;</span>
+```
+- и заменяем его на
+```js
+${options.closable ? `<span class="modal-close">&times;</span>` : ''} // Если нет контента, то выводится пустая строка
+```
