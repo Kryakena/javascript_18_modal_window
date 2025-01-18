@@ -368,7 +368,7 @@ closing = false
 !closing && 
 ```
 
-24. 
+24. настраиваем кнопки
 
 - в index.js создаем новую const
 ```js
@@ -407,3 +407,96 @@ const DEFAULT_WIDTH = '600px'
 ${options.closable ? `<span class="modal-close">&times;</span>` : ''} // Если нет контента, то выводится пустая строка
 ```
 ![2025-01-17_19-52-20](https://github.com/user-attachments/assets/817dbb5e-a336-44e2-a615-eced5a251252)
+
+25. в modal.js нужен элемент, который нам закроет модалку - атрибут data-close 
+
+- в modal-header в function _createModal(options)
+```js
+${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''} 
+```
+- в modal-overlay в function _createModal(options)
+```js
+<div class="modal-overlay" data-close="true">
+```
+
+26. в modal.js нужна прослушка события после нажатия на модальное окно в $.modal = function(options)
+Теперь система реагирует на клик
+
+```js
+$modal.addEventListener('click', (event) => { // Прослушка события по клику
+    console.log('Clicked', event.target.dataset.close) // Можно также пользоваться dataset.close или getAttribute()
+})
+```
+
+27. в modal.js в $.modal = function(options) почти все полностью переносим и переписываем, чтобы модальное окно реагировало на клик
+закрыть при нажатии на крестик в верхнем правом углу модального окна и при нажатии на оверлей
+
+```js
+    const modal = {
+    open() {
+        !closing && $modal.classList.add('open') // Добавляем класс open
+    }, // Визуализацию лучше делать через css, это наиболее быстрый путь
+    close() { // Вызываем метод close, который вызывает метод hide, который при завершении анимации закрытии модального окна, сам удалится
+        closing = true
+        $modal.classList.remove('open') // Добавляем класс open
+        $modal.classList.add('hide')
+        setTimeout(() => {
+            $modal.classList.remove('hide')
+            closing = false
+        }, ANIMATION_SPEED)
+    }, // Визуализацию лучше делать через css, это наиболее быстрый путь
+}
+
+$modal.addEventListener('click', (event) => { // Прослушка события по клику
+    console.log('Clicked', event.target.dataset.close) // Можно также пользоваться dataset.close или getAttribute()
+    if (event.target.dataset.close) { // При нажатии кнопки close срабатывает событие close из return ниже
+        // А т.к. объект close находится ниже по коду, значит вызывается позже: то мы создаем выше этой строки const modal
+        // Переносим строки с методами open и close в строку выше с const modal, временно удаляем метод destroy
+        modal.close()
+    }
+})
+
+return modal  // Пример замыкания
+}
+```
+
+27. в modal.js настраиваем destroy в $.modal = function(options). Чтобы была чистка события после закрытия модального окна
+Можно в этом убедится: при открытии модального окна в разделе Elements в DevTools появляется div с содержанием модального окна.
+А при закрытии модального окна - div удаляется.
+
+```js
+    return Object.assign(modal, {
+    destroy() { // Чистка события после открытия и закрытия - удаление Node из ноддерева
+        $modal.parentNode.removeChild($modal) // После этого добавляем небольшую защиту в начале функции let destroyed = false
+        destroyed = true
+    }
+})  // Пример замыкания
+```
+```js
+let destroyed = false // Чистка события после открытия и закрытия
+```
+- там же в open
+```js
+if (destroyed) { // Если destroyed в значении true, тогда мы не запускаем метод open
+    return console.log('Modal is destroyed')
+}
+```
+
+28. в modal.js - слушатель - переписываем полностью прослушку события по клику
+
+```js
+    const listener = event => {
+    if (event.target.dataset.close) { // При нажатии кнопки close срабатывает событие close из return ниже
+        // А т.к. объект close находится ниже по коду, значит вызывается позже: то мы создаем выше этой строки const modal
+        // Переносим строки с методами open и close в строку выше с const modal, временно удаляем метод destroy
+        modal.close()
+    }
+}
+
+$modal.addEventListener('click', listener) // Прослушка события по клику
+```
+- а в return добавляем строку
+```js
+$modal.removeEventListener('click', listener) // Не будет утечек памяти, если мы уничтожаем наше модальное окно
+```
+
