@@ -4,7 +4,7 @@
 1. видео "Модальное окно на ЧИСТОМ JS + CSS. Урок 1"
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
 2. видео "Модальное окно JS. События, Прототипы, Замыкания. Урок 2"
-   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8
+   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8 18^28
 
 ![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
 
@@ -427,6 +427,8 @@ $modal.addEventListener('click', (event) => { // Прослушка событи
     console.log('Clicked', event.target.dataset.close) // Можно также пользоваться dataset.close или getAttribute()
 })
 ```
+
+![26](https://github.com/user-attachments/assets/fb062f31-e49e-4bc8-96cf-8b1c68f74851)
 
 27. в modal.js в $.modal = function(options) почти все полностью переносим и переписываем, чтобы модальное окно реагировало на клик
 закрыть при нажатии на крестик в верхнем правом углу модального окна и при нажатии на оверлей
