@@ -1,3 +1,19 @@
+Element.prototype.appendAfter = function (element) {
+    element.parentNode.insertBefore(this, element.nextSibling) // Обращаемся к элементу, который передаем - modal-content. Обращаемся к parentNode, который должен вызвать метод insertBefore. Элемент this (футер) и element.nextSibling
+}
+
+function _createModalFooter(buttons = []) {
+    if (buttons.length === 0) {
+        return document.createElement('div')
+    }
+
+    const wrap = document.createElement('div')
+    wrap.classList.add('modal-footer')
+
+    return wrap
+}
+
+
 // Эта системная функция должна вызываться отдельно, приватно.
 // Она по умолчанию подключится к window, но с webpack будет работать.
 function _createModal(options) {
@@ -11,16 +27,14 @@ function _createModal(options) {
                     <span class="modal-title">${options.title || 'Окно'}</span> 
                     ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''} 
                 </div>
-                <div class="modal-body"> 
+                <div class="modal-body" data-content> 
                     ${options.content || ''}  
-                </div>
-                <div class="modal-footer">
-                    <button>Ok</button>
-                    <button>Cancel</button>
                 </div>
             </div>
         </div>
     `)
+    const footer = _createModalFooter(options.footerButtons)
+    footer.appendAfter(modal.querySelector('[data-content]'))
     document.body.appendChild(modal)
     return modal
 }
@@ -64,6 +78,9 @@ $.modal = function(options) { // Работа с замыканием
             $modal.parentNode.removeChild($modal) // После этого добавляем небольшую защиту в начале функции let destroyed = false
             $modal.removeEventListener('click', listener) // Не будет утечек памяти, если мы уничтожаем наше модальное окно
             destroyed = true
+        },
+        setContent(html) { // setContent - публичный, поэтому мы его экспортируем. В modal-body добавляем data-content
+            $modal.querySelector('[data-content]').innerHTML = html
         }
     })  // Пример замыкания
 }

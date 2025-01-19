@@ -4,7 +4,7 @@
 1. видео "Модальное окно на ЧИСТОМ JS + CSS. Урок 1"
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
 2. видео "Модальное окно JS. События, Прототипы, Замыкания. Урок 2"
-   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8 18^28
+   https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8 
 
 ![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
 
@@ -502,3 +502,64 @@ $modal.addEventListener('click', listener) // Прослушка события 
 $modal.removeEventListener('click', listener) // Не будет утечек памяти, если мы уничтожаем наше модальное окно
 ```
 
+29. формируем футер 
+
+- в modal.js экспортируем setContent
+```js
+setContent(html) { // setContent - публичный, поэтому мы его экспортируем. В modal-body добавляем data-content
+$modal.querySelector('[data-content]').innerHTML = html
+}
+```
+- в modal.js добавляем data-content
+```js
+<div class="modal-body" data-content> 
+```
+- в index.js в const modal добавляем кнопки
+```js
+footerButtons: [
+    {text: 'Ok', type: 'primary', handler() {
+            console.log('Primary btn clicked')
+        }},
+    {text: 'Cancel', type: 'danger', handler() {
+            console.log('Danger btn clicked')
+        }}
+]
+```
+- в modal.js в function _createModal(options) удаляем кнопки
+```js
+</div>
+<div class="modal-footer">
+    <button>Ok</button>
+    <button>Cancel</button>
+```
+- в modal.js создаем отдельную приватную функцию для футера, чтобы было событие по клику
+```js
+function _createModalFooter(buttons = []) {
+    if (buttons.length === 0) {
+        return document.createElement('div')
+    }
+
+    const wrap = document.createElement('div')
+    wrap.classList.add('modal-footer')
+
+    return wrap
+}
+```
+- в modal.js в function _createModal(options) в нужном месте добавляем футер
+```js
+const footer = _createModalFooter(options.footerButtons)
+footer.appendAfter(modal.querySelector('[data-content]'))
+```
+- в modal.js создаем функцию
+```js
+Element.prototype.appendAfter = function (element) {
+    element.parentNode.insertBefore(this, element.nextSibling) // Обращаемся к элементу, который передаем - modal-content. Обращаемся к parentNode, который должен вызвать метод insertBefore. Элемент this (футер) и element.nextSibling
+}
+```
+
+30. динамически генерируем кнопки для футера модального окна
+
+- в modal.js 
+```js
+
+```
