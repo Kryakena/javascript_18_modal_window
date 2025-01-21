@@ -557,9 +557,58 @@ Element.prototype.appendAfter = function (element) {
 }
 ```
 
-30. динамически генерируем кнопки для футера модального окна
+30. динамически генерируем кнопки (Ok и Cansel) для футера модального окна
 
-- в modal.js 
+- в modal.js создаем новую пустую функцию
 ```js
+function noop() {} //Эта функция noop пустая и ничего не делает
+```
+- в modal.js в функции function _createModalFooter добавляем генерацию кнопок
+```js
+buttons.forEach(btn => { // На каждой операции мы принимаем buttons из function _createModalFooter (Ok или Cansel)
+        const  $btn = document.createElement('button')
+        $btn.textContent = btn.text
+        $btn.classList.add('btn')
+        $btn.classList.add(`btn-${btn.type || 'secondary'}`) // Класс type по умолчанию
+        $btn.onclick = btn.handler || noop // Добавляем индивидуальный обработчик событий onclick
+```
 
+31. чтобы закрыть эти кнопки Ok и Cansel в index.js в функции const modal к кнопкам Ok и Cansel добавляем строку
+
+```js
+modal.close()
+```
+
+32. делаем верстку модального окна. 
+
+- index.html и удаляем ненужный параграф <p>
+```html
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cum dolores ex excepturi obcaecati sequi, velit. Accusamus aspernatur consequuntur dignissimos, facere id illo, ipsam magnam minima nobis obcaecati recusandae repellat veniam vero? Alias asperiores assumenda beatae blanditiis corporis deleniti dolor dolore, eligendi error facere inventore magni minus molestias nobis non quia quos similique sint. Enim minus odio placeat qui, sint suscipit? Amet nam necessitatibus quos. Aperiam delectus expedita fugit in ipsa, ipsum laudantium magnam minus, modi pariatur quas, quasi quos sapiente tenetur unde? Aut consequuntur, doloribus eaque earum ex in iusto laudantium mollitia nesciunt officiis quisquam tempore vero voluptate voluptatibus?</p>
+```
+- вместо удаленного параграфа <p> создаем div row и col
+```html
+<div class="row">
+    <div class="col">
+        
+    </div>
+</div>
+```
+- и в созданные div вставляем скопированный готовый код для верстки с сайта https://getbootstrap.com/docs/5.3/components/card/
+```html
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+```
+- удаляем из данного кода стиль в div card
+```html
+style="width: 18rem;"
+```
+- удаляем из данного кода alt в строке img
+```html
+alt="..."
 ```

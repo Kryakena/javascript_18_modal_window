@@ -2,6 +2,8 @@ Element.prototype.appendAfter = function (element) {
     element.parentNode.insertBefore(this, element.nextSibling) // Обращаемся к элементу, который передаем - modal-content. Обращаемся к parentNode, который должен вызвать метод insertBefore. Элемент this (футер) и element.nextSibling
 }
 
+function noop() {} //Эта функция noop пустая и ничего не делает
+
 function _createModalFooter(buttons = []) {
     if (buttons.length === 0) {
         return document.createElement('div')
@@ -9,6 +11,16 @@ function _createModalFooter(buttons = []) {
 
     const wrap = document.createElement('div')
     wrap.classList.add('modal-footer')
+
+    buttons.forEach(btn => { // На каждой операции мы принимаем buttons из function _createModalFooter (Ok или Cansel)
+        const  $btn = document.createElement('button')
+        $btn.textContent = btn.text
+        $btn.classList.add('btn')
+        $btn.classList.add(`btn-${btn.type || 'secondary'}`) // Класс type по умолчанию
+        $btn.onclick = btn.handler || noop // Добавляем индивидуальный обработчик событий onclick
+
+        wrap.appendChild($btn)
+    })
 
     return wrap
 }
