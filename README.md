@@ -573,6 +573,9 @@ buttons.forEach(btn => { // На каждой операции мы приним
         $btn.onclick = btn.handler || noop // Добавляем индивидуальный обработчик событий onclick
 ```
 
+![30](https://github.com/user-attachments/assets/efed6e09-9323-4054-9f42-2ebc6756eb74)
+
+
 31. чтобы закрыть эти кнопки Ok и Cansel в index.js в функции const modal к кнопкам Ok и Cansel добавляем строку
 
 ```js
@@ -604,6 +607,9 @@ modal.close()
     </div>
 </div>
 ```
+
+![2025-01-21_16-35-44](https://github.com/user-attachments/assets/aa15326a-687c-483c-a618-2a570afe471d)
+
 - удаляем из данного кода стиль в div card
 ```html
 style="width: 18rem;"
