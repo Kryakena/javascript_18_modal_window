@@ -682,3 +682,4 @@ const fruits = [
 <a href="#" class="btn btn-primary">Посмотреть цену</a>
 <a href="#" class="btn btn-danger">Удалить</a>
 ```
+![2025-01-22_16-18-15](https://github.com/user-attachments/assets/28695fc7-2238-47b2-8f64-4062880ae93e)
