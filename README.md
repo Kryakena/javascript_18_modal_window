@@ -588,7 +588,7 @@ modal.close()
 ```html
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cum dolores ex excepturi obcaecati sequi, velit. Accusamus aspernatur consequuntur dignissimos, facere id illo, ipsam magnam minima nobis obcaecati recusandae repellat veniam vero? Alias asperiores assumenda beatae blanditiis corporis deleniti dolor dolore, eligendi error facere inventore magni minus molestias nobis non quia quos similique sint. Enim minus odio placeat qui, sint suscipit? Amet nam necessitatibus quos. Aperiam delectus expedita fugit in ipsa, ipsum laudantium magnam minus, modi pariatur quas, quasi quos sapiente tenetur unde? Aut consequuntur, doloribus eaque earum ex in iusto laudantium mollitia nesciunt officiis quisquam tempore vero voluptate voluptatibus?</p>
 ```
-- вместо удаленного параграфа <p> создаем div row и col
+- index.html - вместо удаленного параграфа <p> создаем div row и col
 ```html
 <div class="row">
     <div class="col">
@@ -596,7 +596,7 @@ modal.close()
     </div>
 </div>
 ```
-- и в созданные div вставляем скопированный готовый код для верстки с сайта https://getbootstrap.com/docs/5.3/components/card/
+- index.html - и в созданные div вставляем скопированный готовый код для верстки с сайта https://getbootstrap.com/docs/5.3/components/card/
 ```html
 <div class="card" style="width: 18rem;">
     <img src="..." class="card-img-top" alt="...">
@@ -610,11 +610,64 @@ modal.close()
 
 ![2025-01-21_16-35-44](https://github.com/user-attachments/assets/aa15326a-687c-483c-a618-2a570afe471d)
 
-- удаляем из данного кода стиль в div card
+- index.html - удаляем из данного кода стиль в div card
 ```html
 style="width: 18rem;"
 ```
-- удаляем из данного кода alt в строке img
+- index.html - удаляем из данного кода alt в строке img
 ```html
 alt="..."
+```
+- index.html в строке img - переносим src в конец строки и вставляем в него ссылку на изображение в карточке товара "яблоки" в любом интернет-магазине
+```html
+<img class="card-img-top" src="https://петромост.рф/upload/product_images/73044.jpg">
+```
+- index.html в строке h5 - вместо "Card title" вставляем название товара - Яблоки
+```html
+<h5 class="card-title">Яблоки</h5>
+```
+- index.html удаляем полностью строку <p class="card-text"> - она не понадобится
+- index.html добавляем стиль для изображения яблок в строку с img - высоту
+```html
+<img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/73044.jpg">
+```
+- index.html создаем такие же еще 2 карточки товаров "Апельсины" и "Манго". И теперь вместе с яблоками все выглядит вот так:
+```html
+<div class="row">
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/73044.jpg">
+                <div class="card-body">
+                    <h5 class="card-title">Яблоки</h5>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/98246.jpg">
+                <div class="card-body">
+                    <h5 class="card-title">Апельсины</h5>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/05406.jpg">
+                <div class="card-body">
+                    <h5 class="card-title">Манго</h5>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+</div>
+```
+- в index.js создаем эти же карточки с указанием цены price
+```js
+const fruits = [
+    {id: 1, title: 'Яблоки', price: 20, img: 'https://петромост.рф/upload/product_images/73044.jpg'},
+    {id: 2, title: 'Апельсины', price: 30, img: 'https://петромост.рф/upload/product_images/98246.jpg'},
+    {id: 3, title: 'Манго', price: 40, img: 'https://петромост.рф/upload/product_images/05406.jpg'},
+]
 ```

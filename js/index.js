@@ -1,7 +1,7 @@
 const fruits = [
-    {id: 1, title: 'Яблоки', price: 20, img: ''},
-    {id: 2, title: 'Апельсины', price: 30, img: ''},
-    {id: 3, title: 'Манго', price: 40, img: ''},
+    {id: 1, title: 'Яблоки', price: 20, img: 'https://петромост.рф/upload/product_images/73044.jpg'},
+    {id: 2, title: 'Апельсины', price: 30, img: 'https://петромост.рф/upload/product_images/98246.jpg'},
+    {id: 3, title: 'Манго', price: 40, img: 'https://петромост.рф/upload/product_images/05406.jpg'},
 ]
 
 const modal = $.modal({ // Создаем объект {}
