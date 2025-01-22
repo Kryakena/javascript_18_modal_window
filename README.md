@@ -618,20 +618,20 @@ style="width: 18rem;"
 ```html
 alt="..."
 ```
-- index.html в строке img - переносим src в конец строки и вставляем в него ссылку на изображение в карточке товара "яблоки" в любом интернет-магазине
+- в index.html в строке img - переносим src в конец строки и вставляем в него ссылку на изображение в карточке товара "яблоки" в любом интернет-магазине
 ```html
 <img class="card-img-top" src="https://петромост.рф/upload/product_images/73044.jpg">
 ```
-- index.html в строке h5 - вместо "Card title" вставляем название товара - Яблоки
+- в index.html в строке h5 - вместо "Card title" вставляем название товара - Яблоки
 ```html
 <h5 class="card-title">Яблоки</h5>
 ```
-- index.html удаляем полностью строку <p class="card-text"> - она не понадобится
-- index.html добавляем стиль для изображения яблок в строку с img - высоту
+- в index.html удаляем полностью строку <p class="card-text"> - она не понадобится
+- в index.html добавляем стиль для изображения яблок в строку с img - высоту
 ```html
 <img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/73044.jpg">
 ```
-- index.html создаем такие же еще 2 карточки товаров "Апельсины" и "Манго". И теперь вместе с яблоками все выглядит вот так:
+- в index.html создаем такие же еще 2 карточки товаров "Апельсины" и "Манго". И теперь вместе с яблоками все выглядит вот так:
 ```html
 <div class="row">
         <div class="col">
@@ -673,3 +673,12 @@ const fruits = [
 ```
 ![32](https://github.com/user-attachments/assets/70c20c44-01b7-4888-b1a3-b403b23a1eac)
 
+33. делаем кнопки "Go somewhere" в каждой карточке довара
+
+- в index.html вместо строки с кнопкой "Go somewhere" <a href="#" class="btn btn-primary">Go somewhere</a>
+создаем 2 кнопки "Посмотреть цену" (btn btn-primary) и "Удалить" (btn btn-danger)
+и вставляем в каждую карточку товара
+```html
+<a href="#" class="btn btn-primary">Посмотреть цену</a>
+<a href="#" class="btn btn-danger">Удалить</a>
+```
