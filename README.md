@@ -671,3 +671,5 @@ const fruits = [
     {id: 3, title: 'Манго', price: 40, img: 'https://петромост.рф/upload/product_images/05406.jpg'},
 ]
 ```
+![32](https://github.com/user-attachments/assets/70c20c44-01b7-4888-b1a3-b403b23a1eac)
+
