@@ -12,7 +12,6 @@ https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389
 https://github.com/user-attachments/assets/d1fb7288-5c25-4011-a697-5d9567436798
 
 
-
 1. создаем создаем файлы index.html, modal.css (в папке css), base.js (для подключения плагинов в папке js) 
 и index.js (ведется разработка, в папке js, подключается в самом конце после base.js) в папке проекта.
 
