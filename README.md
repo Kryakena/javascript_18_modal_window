@@ -5,6 +5,8 @@
 https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389%2Fde64bf9eeff034ec99
 2. видео "Модальное окно JS. События, Прототипы, Замыкания. Урок 2"
    https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280390%2F341cb3abb9927b06b8 
+3. видео "Модальное окно JS. Promise, Делегирование событий. Урок 3"
+   https://vk.com/im/convo/19460369?entrypoint=list_all&w=wall-11899736_41755&z=video-101965347_456280391%2F8a2652fcebeb7eb5c1%2Fpl_post_-11899736_41755
 
 ![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
 
@@ -683,3 +685,53 @@ const fruits = [
 <a href="#" class="btn btn-danger">Удалить</a>
 ```
 ![2025-01-22_16-18-15](https://github.com/user-attachments/assets/28695fc7-2238-47b2-8f64-4062880ae93e)
+
+34. динамически на основе массива вывести список карточек
+
+- в index.html списку (row) даем id
+```html
+<div class="row" id="fruits">
+```
+- в index.js создаем функцию render
+```js
+function render() {
+    const html
+    document.querySelector('#fruits').innerHTML = html;
+}
+```
+- удаляем повторяющийся элемент (строка "col" с каждым товаром - яблоки и т.д.) из index.html. Один col с яблоками копируем
+```html
+<div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="https://петромост.рф/upload/product_images/73044.jpg">
+                <div class="card-body">
+                    <h5 class="card-title">Яблоки</h5>
+                    <a href="#" class="btn btn-primary">Посмотреть цену</a>
+                    <a href="#" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+</div>
+```
+- в index.js создаем функцию и вставляем свой шаблон "col" с яблоками и делаем из него универсальную карточку. 
+Пока "Посмотреть цену" и "Удалить" не трогаем 
+```js
+const toHTML = fruits => `
+    <div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="${fruit.img}" alt="${fruit.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${fruit.title}</h5>
+                    <a href="#" class="btn btn-primary">Посмотреть цену</a>
+                    <a href="#" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+    </div>
+`
+```
+- в index.js дописываем функцию render - дописываем html
+```js
+function render() {
+    const html = fruits.map(toHTML)
+    document.querySelector('#fruits').innerHTML = html
+}
+```
