@@ -72,7 +72,7 @@ $.modal = function(options) { // Работа с замыканием
                 $modal.classList.remove('hide')
                 closing = false
             }, ANIMATION_SPEED)
-        }, // Визуализацию лучше делать через css, это наиболее быстрый путь
+        } // Визуализацию лучше делать через css, это наиболее быстрый путь
     }
 
     const listener = event => {

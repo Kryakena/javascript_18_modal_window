@@ -734,3 +734,46 @@ function render() {
     document.querySelector('#fruits').innerHTML = html
 }
 ```
+- чтобы увидеть карточки товаров - вызываем метод render в index.js
+```js
+render()
+```
+
+35. показать цену в модалке (и это должна быть 1 модалка)
+
+- в index.js в строке "Посмотреть цену" добавляем data-btn и произвольно называем
+```js
+<a href="#" class="btn btn-primary" data-btn="price">Посмотреть цену</a>
+```
+- в index.js добавляем документ со слушателем event
+```js
+document.addEventListener('click', event => {
+    event.preventDefault()
+    const btnType = event.target.dataset.btn
+
+    if (btnType === 'price') {
+        priceModal.open() // открыть модальное окно при нажатии
+    }
+})
+```
+- в index.js меняем название уже ранее созданной постоянной переменной с modal на priceModal
+```js
+const priceModal
+```
+- в index.js в переименованной переменной меняем название title на "Цена на Товар" и убираем content 
+(мы будем его периодически добавлять). Также modal.close переименовываем в priceModal. Убираем console.log.
+Удаляем кнопку "Cansel". Кнопку "Ok" переименовываем на "Закрыть"
+
+```js
+const priceModal = $.modal({ // Создаем объект {}
+    title: 'Цена на Товар',
+    closable: true, // Чтобы модальное окно могло закрываться
+    width: '400px',
+    footerButtons: [
+        {text: 'Закрыть', type: 'primary', handler() {
+           priceModal.close()
+        }}
+    ]
+})
+```
+
