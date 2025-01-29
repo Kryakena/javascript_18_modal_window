@@ -714,7 +714,7 @@ function render() {
 - в index.js создаем функцию и вставляем свой шаблон "col" с яблоками и делаем из него универсальную карточку. 
 Пока "Посмотреть цену" и "Удалить" не трогаем 
 ```js
-const toHTML = fruits => `
+const toHTML = fruit => `
     <div class="col">
             <div class="card">
                 <img class="card-img-top" style="height: 300px;" src="${fruit.img}" alt="${fruit.title}">
@@ -730,7 +730,7 @@ const toHTML = fruits => `
 - в index.js дописываем функцию render - дописываем html
 ```js
 function render() {
-    const html = fruits.map(toHTML)
+    const html = fruits.map(toHTML).join('')
     document.querySelector('#fruits').innerHTML = html
 }
 ```
@@ -763,7 +763,6 @@ const priceModal
 - в index.js в переименованной переменной меняем название title на "Цена на Товар" и убираем content 
 (мы будем его периодически добавлять). Также modal.close переименовываем в priceModal. Убираем console.log.
 Удаляем кнопку "Cansel". Кнопку "Ok" переименовываем на "Закрыть"
-
 ```js
 const priceModal = $.modal({ // Создаем объект {}
     title: 'Цена на Товар',
@@ -776,4 +775,41 @@ const priceModal = $.modal({ // Создаем объект {}
     ]
 })
 ```
+- в index.js добавляем дата атрибут в виде id в переменной "const toHTML"
+```js
+<a href="#" class="btn btn-primary" data-btn="price" data-id="${fruit.id}">Посмотреть цену</a>
+```
+- в index.js получаем этот id из кнопки "Посмотреть цену" - добавляем строку в документ со слушателем "document.addEventListener"
+```js
+const id = event.target.dataset.id
+```
+- в index.js добавляем строку в документ со слушателем "document.addEventListener".
+Получаем фрукт по id.
+А чтобы искалось id фрукта не по любому щелчку мыши на экране, а при нажатии кнопки "Посмотреть цену", то помещаем строку в if
+```js
+const fruit = fruits.find(f => f.id === id) // обращаемся к массиву fruits и вызываем метод find
+// на каждой итерации мы получаем объект f с его полем id
+// === должно совпадать с id
+```
+- в index.js добавляем просмотр через консоль с помощью добавления строки в документ со слушателем "document.addEventListener".
+```js
+console.log(id, fruit)
+```
+- в index.js преобразуем  строку с переменной id к числу в документе со слушателем "document.addEventListener".
+Ставим знак " + " перед event
+```js
+const id = +event.target.dataset.id
+```
+- в index.js в документе со слушателем "document.addEventListener" - 
+чтобы при открытии модального окна отображалось название товара и его цена
+```js
+priceModal.setContent(`
+  <p>Цена на ${fruit.title}: <strong>${fruit.price}$</strong></p>
+`)
+```
 
+36. Модалка для удаления с 2мя кнопками
+
+```
+
+```
