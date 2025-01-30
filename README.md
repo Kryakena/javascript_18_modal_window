@@ -91,7 +91,8 @@ https://github.com/user-attachments/assets/d1fb7288-5c25-4011-a697-5d9567436798
 </div>
 ```
 
-9. в файле index.html добавляем в данный container текст (набираем с новой строки "Lorem100" и нажимаем кнопку на клавиатуре "Tab")
+9. в файле index.html добавляем в данный container текст (набираем с новой строки "Lorem100" и 
+нажимаем кнопку на клавиатуре "Tab")
 
 ```html
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cum dolores ex excepturi obcaecati sequi, velit. Accusamus aspernatur consequuntur dignissimos, facere id illo, ipsam magnam minima nobis obcaecati recusandae repellat veniam vero? Alias asperiores assumenda beatae blanditiis corporis deleniti dolor dolore, eligendi error facere inventore magni minus molestias nobis non quia quos similique sint. Enim minus odio placeat qui, sint suscipit? Amet nam necessitatibus quos. Aperiam delectus expedita fugit in ipsa, ipsum laudantium magnam minus, modi pariatur quas, quasi quos sapiente tenetur unde? Aut consequuntur, doloribus eaque earum ex in iusto laudantium mollitia nesciunt officiis quisquam tempore vero voluptate voluptatibus?</p>
@@ -431,7 +432,8 @@ $modal.addEventListener('click', (event) => { // Прослушка событи
 
 ![26](https://github.com/user-attachments/assets/fb062f31-e49e-4bc8-96cf-8b1c68f74851)
 
-27. в modal.js в $.modal = function(options) почти все полностью переносим и переписываем, чтобы модальное окно реагировало на клик
+27. в modal.js в $.modal = function(options) почти все полностью переносим и переписываем, 
+чтобы модальное окно реагировало на клик
 закрыть при нажатии на крестик в верхнем правом углу модального окна и при нажатии на оверлей
 
 ```js
@@ -619,7 +621,8 @@ style="width: 18rem;"
 ```html
 alt="..."
 ```
-- в index.html в строке img - переносим src в конец строки и вставляем в него ссылку на изображение в карточке товара "яблоки" в любом интернет-магазине
+- в index.html в строке img - переносим src в конец строки и вставляем в него ссылку 
+на изображение в карточке товара "яблоки" в любом интернет-магазине
 ```html
 <img class="card-img-top" src="https://петромост.рф/upload/product_images/73044.jpg">
 ```
@@ -779,19 +782,22 @@ const priceModal = $.modal({ // Создаем объект {}
 ```js
 <a href="#" class="btn btn-primary" data-btn="price" data-id="${fruit.id}">Посмотреть цену</a>
 ```
-- в index.js получаем этот id из кнопки "Посмотреть цену" - добавляем строку в документ со слушателем "document.addEventListener"
+- в index.js получаем этот id из кнопки "Посмотреть цену" - добавляем строку в документ 
+со слушателем "document.addEventListener"
 ```js
 const id = event.target.dataset.id
 ```
 - в index.js добавляем строку в документ со слушателем "document.addEventListener".
 Получаем фрукт по id.
-А чтобы искалось id фрукта не по любому щелчку мыши на экране, а при нажатии кнопки "Посмотреть цену", то помещаем строку в if
+А чтобы искалось id фрукта не по любому щелчку мыши на экране, а при нажатии кнопки "Посмотреть цену", 
+то помещаем строку в if
 ```js
 const fruit = fruits.find(f => f.id === id) // обращаемся к массиву fruits и вызываем метод find
 // на каждой итерации мы получаем объект f с его полем id
 // === должно совпадать с id
 ```
-- в index.js добавляем просмотр через консоль с помощью добавления строки в документ со слушателем "document.addEventListener".
+- в index.js добавляем просмотр через консоль с помощью добавления строки в документ со слушателем 
+"document.addEventListener".
 ```js
 console.log(id, fruit)
 ```
@@ -810,6 +816,112 @@ priceModal.setContent(`
 
 36. Модалка для удаления с 2мя кнопками
 
+- создаем в папке проекта "plugins" файл js "confirm.js"
+- в файле "index.html" подключаем данный плагин
+```html
+<script src="plugins/confirm.js"></script>
+```
+- в файле "index.js" добавляем data для кнопки "Удалить" в "const toHTML"
+```js
+<a href="#" class="btn btn-danger" data-btn="remove" data-id="${fruit.id}">Удалить</a>
+```
+- в файле "confirm.js" обращаемся к нашему объекту - это асинхронная операция
+```js
+$.confirm = function(options) {
+    
+}
+```
+- в файле "confirm.js" (делаем все без callback), чтобы не было конфликтов, делаем дальше через Promise
+```js
+$.confirm = function(options) {
+    return new Promise((resolve, reject) => {
+
+    })
+}
+```
+- в файле "confirm.js" в "$.confirm" делаем размер модального окна, настраиваем кнопки
+```js
+const modal = $.modal({
+    title: options.title,
+    width: '400px',
+    closable: false, // мы можем закрыть окно, только при нажатии кнопки "Удалить" или "Отменить"
+    footerButtons: [
+        {text: 'Отмена', type: 'secondary', handler() {
+                modal.close()
+            }},
+        {text: 'Удалить', type: 'danger', handler() {
+                modal.close()
+            }}
+    ]
+})
+```
+- в файле "confirm.js" в "$.confirm" - с помощью Promise говорить, на что мы нажали.
+Данные команды даем к каждой кнопке
+```js
+К кнопке "Отмена" - reject() // отмена
+
+К кнопке "Удалить" - resolve() // при удалении подтвердить
+```
+- в файле "confirm.js" в "$.confirm" - добавляем контент
+```js
+content: options.content,
+```
+- в файле "confirm.js" в "$.confirm" - при нажатии одной из кнопок окна с подтверждением, снова открывает модальное окно
+```js
+modal.open()
+```
+- в файле "index.js" в "document.addEventListener" - переносим fruit к другим const под событием
+```js
+const fruit = fruits.find(f => f.id === id) // обращаемся к массиву fruits и вызываем метод find
+    // на каждой итерации мы получаем объект f с его полем id
+    // === должно совпадать с id
+```
+- в файле "index.js" в "document.addEventListener" - удаляем строку, она теперь не нужна
+```js
+console.log(id, fruit)
+```
+- в файле "index.js" в "document.addEventListener" - добавляем else для кнопок "Удалить" и "Отмена"
+```js
+else if (btnType === 'remove') {
+    $.confirm({
+        title: 'Вы уверены?',
+        content: `<p>Вы удаляете фрукт: <strong>${fruit.title}</strong></p>`
+    }).then(() => { // если попадаем в метод then, это означает, что мы нажали кнопку "Удалить"
+        console.log('Remove')
+    }).catch(() => { // если попали в блок catch, значит мы нажатли на кнопку "Cansel"
+        console.log('Cancel')
+    })
+}
+```
+- в файле "confirm.js" в "$.confirm" вместо modal.open() в конце - чтобы постоянно не открывались новые vmodal 
+в console при каждом нажатии кнопок
+```js
+setTimeout(() => modal.open(), 100) // закрытие всех открытых модальных окон каждые 100 миллисекунд
+```
+- в файле "modal.js" в "$.modal" в блоке setTimeout при закрытии окна "close()"
+```js
+if (typeof options.onClose === 'function') { // чтобы не перезагружать дерево на странице при каждом закрытии модальных окон
+                    options.onClose()
+}
 ```
 
+37. реализация удаления динамических элементов
+
+- в файле "index.js" в "document.addEventListener" удаляем строку в конце
+```js
+console.log('Remove')
+```
+- в файле "index.js" в "document.addEventListener" вместо удаленной строки пишем фильтр - 
+будет удаляться только карточка с товаром
+```js
+fruits = fruits.filter(f => f.id !== id) // товар проходит через фильтр, если id не совпадает с id товара
+```
+- в файле "index.js" в "document.addEventListener" заменяем в самом начале "const fruits", чтобы можно было их удалять
+```js
+let fruits
+```
+- в файле "index.js" в "document.addEventListener" добавляем render, чтобы обновить изображения, 
+при удалении фрукта - карточка исчезнет
+```js
+render()
 ```

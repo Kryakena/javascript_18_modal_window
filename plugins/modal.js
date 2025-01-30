@@ -71,6 +71,9 @@ $.modal = function(options) { // Работа с замыканием
             setTimeout(() => {
                 $modal.classList.remove('hide')
                 closing = false
+                if (typeof options.onClose === 'function') { // чтобы не перезагружать дерево на странице при каждом закрытии модальных окон
+                    options.onClose()
+                }
             }, ANIMATION_SPEED)
         } // Визуализацию лучше делать через css, это наиболее быстрый путь
     }
