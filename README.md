@@ -898,6 +898,8 @@ else if (btnType === 'remove') {
 ```js
 setTimeout(() => modal.open(), 100) // закрытие всех открытых модальных окон каждые 100 миллисекунд
 ```
+![чтобы постоянно не открывались новые vmodal при каждом нажатии кнопок](https://github.com/user-attachments/assets/da2bf576-b41b-4582-a895-df6e02938cf7)
+
 - в файле "modal.js" в "$.modal" в блоке setTimeout при закрытии окна "close()"
 ```js
 if (typeof options.onClose === 'function') { // чтобы не перезагружать дерево на странице при каждом закрытии модальных окон
