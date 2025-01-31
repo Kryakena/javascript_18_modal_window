@@ -8,10 +8,12 @@ https://vk.com/im/convo/19460369?entrypoint=list_all&z=video-101965347_456280389
 3. видео "Модальное окно JS. Promise, Делегирование событий. Урок 3"
    https://vk.com/im/convo/19460369?entrypoint=list_all&w=wall-11899736_41755&z=video-101965347_456280391%2F8a2652fcebeb7eb5c1%2Fpl_post_-11899736_41755
 
-![2025-01-16_11-45-21](https://github.com/user-attachments/assets/c7136a83-fe0e-4242-9e4d-95b44470f8f6)
+![2025-01-31_10-24-17](https://github.com/user-attachments/assets/6af5748f-fba1-47ad-8082-8be54e4306ac)
+![2025-01-31_10-24-34](https://github.com/user-attachments/assets/a25b77dd-5c82-4e43-b6eb-5292a32eeb3c)
+![2025-01-31_10-24-47](https://github.com/user-attachments/assets/77a33e72-ac88-41c5-b60e-6a77dce6da73)
 
 
-https://github.com/user-attachments/assets/d1fb7288-5c25-4011-a697-5d9567436798
+https://github.com/user-attachments/assets/7c1884c0-5830-40ed-83c9-1507cb216db3
 
 
 1. создаем создаем файлы index.html, modal.css (в папке css), base.js (для подключения плагинов в папке js) 
@@ -968,6 +970,10 @@ render()
 </body>
 </html>
 ```
+
+![2025-01-31_10-21-07](https://github.com/user-attachments/assets/505f939e-e397-44da-ba03-a86557a6be36)
+
+
 2. modal.js
 ```js
 Element.prototype.appendAfter = function (element) {
@@ -1072,6 +1078,11 @@ $.modal = function(options) { // Работа с замыканием
     })  // Пример замыкания
 }
 ```
+
+![2025-01-31_10-21-26](https://github.com/user-attachments/assets/079d64f5-0a75-4d05-a5e0-9e1b0d2c9c1b)
+![2025-01-31_10-21-42](https://github.com/user-attachments/assets/2963c44b-9485-47a7-b793-87c9493ce4c9)
+
+
 3. index.js
 ```js
 let fruits = [
@@ -1137,6 +1148,11 @@ document.addEventListener('click', event => {
     }
 })
 ```
+
+![2025-01-31_10-22-01](https://github.com/user-attachments/assets/4c44bce9-0584-4738-8258-7696194ed2cd)
+![2025-01-31_10-22-17](https://github.com/user-attachments/assets/1b9e8a39-3d8d-49a1-801e-cc5d40855976)
+
+
 4. confirm.js
 ```js
 $.confirm = function(options) {
@@ -1165,6 +1181,9 @@ $.confirm = function(options) {
     })
 }
 ```
+
+![2025-01-31_10-22-31](https://github.com/user-attachments/assets/afaa47ca-7422-4996-9e97-5a715dc79c99)
+
 5. base.js
 ```js
 const $ = {
@@ -1173,6 +1192,10 @@ const $ = {
 
 window.$ = $
 ```
+
+![2025-01-31_10-22-42](https://github.com/user-attachments/assets/5ed082de-6492-4807-88b4-5bc2cb77c3a3)
+
+
 6. modal.css
 ```css
 .vmodal {}
@@ -1247,3 +1270,6 @@ window.$ = $
 
 }
 ```
+
+![2025-01-31_10-22-54](https://github.com/user-attachments/assets/de1a015b-914b-49a2-a274-91640abf7ce9)
+![2025-01-31_10-23-08](https://github.com/user-attachments/assets/3b67e052-9480-4e7f-be63-cd18a224c3e9)
