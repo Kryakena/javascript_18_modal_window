@@ -679,7 +679,7 @@ const fruits = [
 ```
 ![32](https://github.com/user-attachments/assets/70c20c44-01b7-4888-b1a3-b403b23a1eac)
 
-33. делаем кнопки "Go somewhere" в каждой карточке довара
+33. делаем кнопки "Go somewhere" в каждой карточке товара
 
 - в index.html вместо строки с кнопкой "Go somewhere" <a href="#" class="btn btn-primary">Go somewhere</a>
 создаем 2 кнопки "Посмотреть цену" (btn btn-primary) и "Удалить" (btn btn-danger)
