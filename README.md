@@ -927,3 +927,323 @@ let fruits
 ```js
 render()
 ```
+
+# Итог
+
+1. index.html
+```html
+<!-- Сообщаем браузеру, как стоит обрабатывать эту страницу -->
+<!DOCTYPE html>
+<!-- Оболочка документа, указываем язык содержимого -->
+<html lang="ru">
+<!-- Заголовок страницы, контейнер для других важных данных (не отображается) -->
+<head>
+    <!-- Заголовок страницы в браузере -->
+    <title>Модальное окно</title>
+    <!-- Подключаем CSS фреймворка bootstrap 4-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Подключаем CSS -->
+    <link rel="stylesheet" href="css/modal.css">
+    <!-- Кодировка страницы -->
+    <meta charset="utf-8">
+    <!-- Адаптив -->
+    <meta name="viewport" content="width=device-width">
+</head>
+<!-- Отображаемое тело страницы -->
+<body>
+<!-- Оболочка для демонстрации -->
+<div class="wrapper">
+    <!-- Контент -->
+    <div class="container">
+        <h1>JavaScript Практика</h1>
+
+        <div class="row" id="fruits"></div>
+    </div>
+</div>
+<!-- Подключаем файл JS скриптов -->
+<script src="js/base.js"></script>
+<script src="plugins/modal.js"></script>
+<script src="plugins/confirm.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
+```
+2. modal.js
+```js
+Element.prototype.appendAfter = function (element) {
+    element.parentNode.insertBefore(this, element.nextSibling) // Обращаемся к элементу, который передаем - modal-content. Обращаемся к parentNode, который должен вызвать метод insertBefore. Элемент this (футер) и element.nextSibling
+}
+
+function noop() {} //Эта функция noop пустая и ничего не делает
+
+function _createModalFooter(buttons = []) {
+    if (buttons.length === 0) {
+        return document.createElement('div')
+    }
+
+    const wrap = document.createElement('div')
+    wrap.classList.add('modal-footer')
+
+    buttons.forEach(btn => { // На каждой операции мы принимаем buttons из function _createModalFooter (Ok или Cansel)
+        const  $btn = document.createElement('button')
+        $btn.textContent = btn.text
+        $btn.classList.add('btn')
+        $btn.classList.add(`btn-${btn.type || 'secondary'}`) // Класс type по умолчанию
+        $btn.onclick = btn.handler || noop // Добавляем индивидуальный обработчик событий onclick
+
+        wrap.appendChild($btn)
+    })
+
+    return wrap
+}
+
+
+// Эта системная функция должна вызываться отдельно, приватно.
+// Она по умолчанию подключится к window, но с webpack будет работать.
+function _createModal(options) {
+    const DEFAULT_WIDTH = '600px'
+    const modal = document.createElement('div');
+    modal.classList.add('vmodal')
+    modal.insertAdjacentHTML('afterbegin', `
+        <div class="modal-overlay" data-close="true">
+            <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
+                <div class="modal-header">
+                    <span class="modal-title">${options.title || 'Окно'}</span> 
+                    ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''} 
+                </div>
+                <div class="modal-body" data-content> 
+                    ${options.content || ''}  
+                </div>
+            </div>
+        </div>
+    `)
+    const footer = _createModalFooter(options.footerButtons)
+    footer.appendAfter(modal.querySelector('[data-content]'))
+    document.body.appendChild(modal)
+    return modal
+}
+
+$.modal = function(options) { // Работа с замыканием
+    const ANIMATION_SPEED = 200
+    const $modal = _createModal(options)
+    let closing = false // Через let, т.к. мы будет менять
+    let destroyed = false // Чистка события после открытия и закрытия
+
+    const modal = {
+        open() {
+            if (destroyed) { // Если destroyed в значении true, тогда мы не запускаем метод open
+                return console.log('Modal is destroyed')
+            }
+            !closing && $modal.classList.add('open') // Добавляем класс open
+        }, // Визуализацию лучше делать через css, это наиболее быстрый путь
+        close() { // Вызываем метод close, который вызывает метод hide, который при завершении анимации закрытии модального окна, сам удалится
+            closing = true
+            $modal.classList.remove('open') // Добавляем класс open
+            $modal.classList.add('hide')
+            setTimeout(() => {
+                $modal.classList.remove('hide')
+                closing = false
+                if (typeof options.onClose === 'function') { // чтобы не перезагружать дерево на странице при каждом закрытии модальных окон
+                    options.onClose()
+                }
+            }, ANIMATION_SPEED)
+        } // Визуализацию лучше делать через css, это наиболее быстрый путь
+    }
+
+    const listener = event => {
+        if (event.target.dataset.close) { // При нажатии кнопки close срабатывает событие close из return ниже
+            // А т.к. объект close находится ниже по коду, значит вызывается позже: то мы создаем выше этой строки const modal
+            // Переносим строки с методами open и close в строку выше с const modal, временно удаляем метод destroy
+            modal.close()
+        }
+    }
+
+    $modal.addEventListener('click', listener) // Прослушка события по клику
+
+    return Object.assign(modal, {
+        destroy() { // Чистка события после открытия и закрытия - удаление Node из ноддерева
+            $modal.parentNode.removeChild($modal) // После этого добавляем небольшую защиту в начале функции let destroyed = false
+            $modal.removeEventListener('click', listener) // Не будет утечек памяти, если мы уничтожаем наше модальное окно
+            destroyed = true
+        },
+        setContent(html) { // setContent - публичный, поэтому мы его экспортируем. В modal-body добавляем data-content
+            $modal.querySelector('[data-content]').innerHTML = html
+        }
+    })  // Пример замыкания
+}
+```
+3. index.js
+```js
+let fruits = [
+    {id: 1, title: 'Яблоки', price: 20, img: 'https://петромост.рф/upload/product_images/73044.jpg'},
+    {id: 2, title: 'Апельсины', price: 30, img: 'https://петромост.рф/upload/product_images/98246.jpg'},
+    {id: 3, title: 'Манго', price: 40, img: 'https://петромост.рф/upload/product_images/05406.jpg'},
+]
+
+const toHTML = fruit => `
+    <div class="col">
+            <div class="card">
+                <img class="card-img-top" style="height: 300px;" src="${fruit.img}" alt="${fruit.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${fruit.title}</h5>
+                    <a href="#" class="btn btn-primary" data-btn="price" data-id="${fruit.id}">Посмотреть цену</a>
+                    <a href="#" class="btn btn-danger" data-btn="remove" data-id="${fruit.id}">Удалить</a>
+                </div>
+            </div>
+    </div>
+`
+
+function render() {
+    const html = fruits.map(toHTML).join('')
+    document.querySelector('#fruits').innerHTML = html
+}
+
+render()
+
+const priceModal = $.modal({ // Создаем объект {}
+    title: 'Цена на Товар',
+    closable: true, // Чтобы модальное окно могло закрываться
+    width: '400px',
+    footerButtons: [
+        {text: 'Закрыть', type: 'primary', handler() {
+                priceModal.close()
+            }}
+    ]
+})
+
+document.addEventListener('click', event => {
+    event.preventDefault()
+    const btnType = event.target.dataset.btn
+    const id = +event.target.dataset.id
+    const fruit = fruits.find(f => f.id === id) // обращаемся к массиву fruits и вызываем метод find
+    // на каждой итерации мы получаем объект f с его полем id
+    // === должно совпадать с id
+
+    if (btnType === 'price') {
+        priceModal.setContent(`
+            <p>Цена на ${fruit.title}: <strong>${fruit.price}$</strong></p>
+        `)
+        priceModal.open() // открыть модальное окно при нажатии
+    } else if (btnType === 'remove') {
+        $.confirm({
+            title: 'Вы уверены?',
+            content: `<p>Вы удаляете фрукт: <strong>${fruit.title}</strong></p>`
+        }).then(() => { // если попадаем в метод then, это означает, что мы нажали кнопку "Удалить"
+            fruits = fruits.filter(f => f.id !== id) // товар проходит через фильтр, если id не совпадает с id разрешенным
+            render()
+        }).catch(() => { // если попали в блок catch, значит мы нажатли на кнопку "Cansel"
+            console.log('Cancel')
+        })
+    }
+})
+```
+4. confirm.js
+```js
+$.confirm = function(options) {
+    return new Promise((resolve, reject) => {
+        const modal = $.modal({
+            title: options.title,
+            width: '400px',
+            closable: false, // мы можем закрыть окно, только при нажатии кнопки "Удалить" или "Отменить"
+            content: options.content,
+            onClose() { // когда он открывается, мы будем модалку уничтожать
+                modal.destroy()
+            },
+            footerButtons: [
+                {text: 'Отмена', type: 'secondary', handler() {
+                        modal.close()
+                        reject() // отмена
+                    }},
+                {text: 'Удалить', type: 'danger', handler() {
+                        modal.close()
+                        resolve() // при удалении подтвердить
+                    }}
+            ]
+        })
+
+        setTimeout(() => modal.open(), 100) // закрытие всех открытых модальных окон каждые 100 миллисекунд
+    })
+}
+```
+5. base.js
+```js
+const $ = {
+
+}
+
+window.$ = $
+```
+6. modal.css
+```css
+.vmodal {}
+
+.vmodal.open .modal-overlay,
+.vmodal.open .modal-window{
+    opacity: 1;
+    z-index: 1000; /* Позволит модальному окну появляться поверх всех элементов */
+}
+
+.vmodal.hide .modal-overlay,
+.vmodal.hide .modal-window{
+    opacity: 1;
+    z-index: 1000;
+}
+
+/* Делаем разные типы анимации: overlay - менять прозрачность, window - будет выпрыгивать сверху */
+.vmodal.open .modal-window {
+    transform: translateY(100px); /* Модальное окно перемещается на 100 пикселей вниз. А чтобы сделать процесс плавным, то в .modal-window добавляем свойство transition */
+}
+.vmodal.open .modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Анимация закрытия модального окна */
+.vmodal.hide .modal-window {
+    transform: translateY(-200px); /* Модальное окно перемещается на 200 пикселей вверх. */
+}
+.vmodal.hide .modal-overlay {
+    background: rgba(0, 0, 0, 0);
+}
+
+.modal-window, .modal-overlay { /* Обращаемся к селекторам */
+    opacity: 0;
+    z-index: -1; /* Чтобы эти селекторы отсутствовали у нас на экране */
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0); /* Контур модального окна - мменяем значения все с 0.5 на 0 - чтобы изначально overlay был невидим */
+    transition: background 200ms ease-in; /* При желании можно вставить сюда img или указать цвет. Указываем скорость появления окна 200 милисекунд */
+}
+
+.modal-window {
+    width: 600px;
+    border-radius: 5px;
+    background: #fff;
+    margin: 0 auto; /* Ставим 0, т.к. оступы у нас будут через transform */
+    transform: translateY(-200px); /* По умолчанию здесь находится модальное окно */
+    transition: transform 200ms ease-in;
+}
+
+.modal-header {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    cursor: pointer;
+}
+
+.modal-body {
+
+}
+```
